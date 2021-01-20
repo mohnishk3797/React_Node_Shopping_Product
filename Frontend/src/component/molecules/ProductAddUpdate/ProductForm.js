@@ -1,61 +1,74 @@
 import React from 'react';
 import { TextInput, ButtonInput } from '../../atoms';
-import { FormHelperText } from '@material-ui/core';
+import { Avatar, Typography, Grid } from '@material-ui/core';
+import { MEDIA_URL } from '../../../redux/services';
 export function UpdateProductForm({
-  classes,
-  handleLogin,
-  setLoginEmail,
-  setLoginPassword,
-  loginEmail,
-  loginPassword,
+  name,
+  setName,
+  price,
+  setPrice,
+  changeMedia,
+  action,
+  actionType,
   error,
+  mediaLink,
 }) {
   return (
     <div style={{ padding: 25 }}>
+      {mediaLink && (
+        <Grid style={{ textAlign: '-webkit-center' }}>
+          <Typography variant='caption'>Current Product Image</Typography>
+          <Avatar
+            style={{ height: 100, width: 100 }}
+            variant='square'
+            src={MEDIA_URL + mediaLink}
+          />
+        </Grid>
+      )}
       <TextInput
         required={true}
         id={'name'}
         name={'name'}
-        // value={loginEmail}
-        // onChange={(value) => setLoginEmail(value)}
+        value={name}
+        onChange={(value) => setName(value)}
         label={'Product Name'}
         type={'text'}
-        // error={error.loginEmail}
-        // errorText={error.loginEmail}
+        error={error.name}
+        errorText={error.name}
         fullWidth={true}
       />
       <TextInput
         required={true}
         id={'price'}
         name={'price'}
-        // value={loginPassword}
-        // onChange={(value) => setLoginPassword(value)}
+        value={price}
+        onChange={(value) => setPrice(value)}
         label={'Product Price'}
-        type={'text'}
-        // error={error.loginPassword}
+        type={'number'}
         fullWidth={true}
-        // errorText={error.loginPassword}
+        error={error.price}
+        errorText={error.price}
       />
+
       <TextInput
         required={true}
-        id={'price'}
-        name={'price'}
-        // value={loginPassword}
-        // onChange={(value) => setLoginPassword(value)}
+        id={'media'}
+        name={'media'}
+        onChange={(value) => changeMedia(value)}
         label={'Product Image'}
         type={'file'}
         InputLabelProps={{ shrink: true }}
-        // error={error.loginPassword}
+        error={error.media}
         fullWidth={true}
-        // errorText={error.loginPassword}
+        errorText={error.media}
       />
+
       <ButtonInput
         type={'button'}
         fullWidth={true}
         color={'primary'}
-        // onClick={() => handleLogin()}
-        // styles={classes.loginBtn}
-        content={'Update'}
+        onClick={() => action()}
+        content={actionType === 'add' ? 'ADD' : 'UPDATE'}
         variant={'contained'}
       />
     </div>

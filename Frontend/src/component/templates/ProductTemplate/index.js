@@ -6,17 +6,59 @@ import {
   ProductUpdateDialog,
 } from '../../molecules';
 import { PaginationAtom } from '../../atoms';
-export function ProductTemplate({ open, setOpen, classes }) {
+export function ProductTemplate({
+  open,
+  setOpen,
+  classes,
+  product,
+  onPageChange,
+  onFilterChange,
+  filterOption,
+  name,
+  setName,
+  price,
+  setPrice,
+  changeMedia,
+  addProduct,
+  actionType,
+  setActionType,
+  error,
+  deleteProduct,
+  setEditValue,
+  mediaLink,
+  updateProduct,
+}) {
   return (
     <Container>
-      <ProductUpdateDialog open={open} handleClose={() => setOpen(false)} />
-      <ProductFilter handleOpenEdit={setOpen} />
+      <ProductUpdateDialog
+        name={name}
+        action={actionType === 'add' ? addProduct : updateProduct}
+        actionType={actionType}
+        setName={setName}
+        price={price}
+        setPrice={setPrice}
+        changeMedia={changeMedia}
+        open={open}
+        handleClose={() => setOpen(false)}
+        error={error}
+        mediaLink={mediaLink}
+      />
+      <ProductFilter
+        filterOption={filterOption}
+        onFilterChange={onFilterChange}
+        handleOpenEdit={setOpen}
+        setActionType={setActionType}
+      />
       <ProductListMolecule
-        data={[{}, {}]}
+        data={product?.docs}
         classes={classes}
         handleOpenEdit={setOpen}
+        deleteProduct={deleteProduct}
+        setEditValue={setEditValue}
       />
-      <PaginationAtom count={10} />
+      {product?.docs.length ? (
+        <PaginationAtom onPageChange={onPageChange} count={product.pages} />
+      ) : null}
     </Container>
   );
 }

@@ -42,7 +42,9 @@ export function TextInput({
       helperText={errorText}
       value={value}
       type={type}
-      onChange={(event) => onChange(event.target.value)}
+      onChange={(event) =>
+        onChange(type === 'file' ? event : event.target.value)
+      }
     />
   );
 }

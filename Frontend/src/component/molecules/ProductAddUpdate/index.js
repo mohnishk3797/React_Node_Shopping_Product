@@ -8,7 +8,19 @@ import {
   Typography,
 } from '@material-ui/core';
 import { UpdateProductForm } from './ProductForm';
-export function ProductUpdateDialog({ handleClose, open }) {
+export function ProductUpdateDialog({
+  handleClose,
+  open,
+  name,
+  setName,
+  price,
+  setPrice,
+  changeMedia,
+  actionType,
+  action,
+  error,
+  mediaLink,
+}) {
   return (
     <ModalAtom
       open={open}
@@ -26,12 +38,22 @@ export function ProductUpdateDialog({ handleClose, open }) {
               color='textSecondary'
               noWrap
             >
-              Update Product Details
+              {actionType === 'add' ? 'Add' : 'Update'} Product Details
             </Typography>
           </DialogTitle>
         </DialogContentText>
       </DialogContent>
-      <UpdateProductForm />
+      <UpdateProductForm
+        name={name}
+        setName={setName}
+        price={price}
+        setPrice={setPrice}
+        changeMedia={changeMedia}
+        action={action}
+        actionType={actionType}
+        error={error}
+        mediaLink={mediaLink}
+      />
     </ModalAtom>
   );
 }

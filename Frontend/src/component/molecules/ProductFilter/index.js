@@ -19,13 +19,18 @@ let sortByOption = [
     item: 'Name -> Z to A',
   },
 ];
-export function ProductFilter({ sortBy, handleOpenEdit }) {
+export function ProductFilter({
+  handleOpenEdit,
+  onFilterChange,
+  filterOption,
+  setActionType,
+}) {
   return (
     <Grid container justify='space-around' xs={12} sm={12} md={12} lg={12}>
       <Grid item xs={12} sm={5} md={6} lg={7}>
         <DropDownInput
-          value={sortBy || ''}
-          onChange={(value) => console.log(value)}
+          value={filterOption}
+          onChange={(value) => onFilterChange(value)}
           label={'Sort By'}
           name={'sortBy'}
           options={sortByOption}
@@ -39,7 +44,10 @@ export function ProductFilter({ sortBy, handleOpenEdit }) {
           type={'button'}
           fullWidth={true}
           color={'primary'}
-          onClick={() => handleOpenEdit(true)}
+          onClick={() => {
+            handleOpenEdit(true);
+            setActionType('add');
+          }}
           inlineStyle={{
             marginTop: 10,
             padding: 14,

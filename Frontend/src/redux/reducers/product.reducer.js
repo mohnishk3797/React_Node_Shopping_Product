@@ -1,6 +1,11 @@
 import { SET_PRODUCT_DATA, UPDATE_PRODUCT_DATA } from '../actionTypes';
 const initialState = {
-  product: [],
+  product: {
+    docs: [],
+    page: 1,
+    pages: 1,
+    total: 3,
+  },
 };
 
 export const productReducers = (state = initialState, action) => {
@@ -8,7 +13,7 @@ export const productReducers = (state = initialState, action) => {
     case SET_PRODUCT_DATA:
       return {
         ...state,
-        ...action.payload,
+        product: action.payload,
       };
     case UPDATE_PRODUCT_DATA:
       return {

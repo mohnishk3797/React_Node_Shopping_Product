@@ -7,22 +7,29 @@ import {
   Typography,
   CardActions,
 } from '@material-ui/core/';
+import { MEDIA_URL } from '../../../redux/services';
 import { ButtonInput } from '../button';
-export function ProductCardAtom({ classes, data, handleOpenEdit }) {
+export function ProductCardAtom({
+  classes,
+  data,
+  handleOpenEdit,
+  deleteProduct,
+  setEditValue,
+}) {
   return (
     <Card className={classes.card}>
       <CardActionArea>
         <CardMedia
           className={classes.media}
-          image='https://static.toiimg.com/photo/72975551.cms'
-          title='Contemplative Reptile'
+          image={`${MEDIA_URL}${data.media}`}
+          title={data.name}
         />
         <CardContent>
           <Typography gutterBottom variant='h5' component='h2'>
-            NAME
+            {data.name}
           </Typography>
           <Typography variant='body2' color='textSecondary' component='p'>
-            Price
+            Price - ${data.price}
           </Typography>
         </CardContent>
       </CardActionArea>
@@ -31,7 +38,10 @@ export function ProductCardAtom({ classes, data, handleOpenEdit }) {
           type={'button'}
           fullWidth={false}
           color={'primary'}
-          onClick={() => handleOpenEdit(true)}
+          onClick={() => {
+            setEditValue(data);
+            handleOpenEdit(true);
+          }}
           content={'Edit'}
           variant='outlined'
         />
@@ -41,6 +51,7 @@ export function ProductCardAtom({ classes, data, handleOpenEdit }) {
           color={'secondary'}
           content={'Delete'}
           variant='outlined'
+          onClick={() => deleteProduct(data._id)}
         />
       </CardActions>
     </Card>
